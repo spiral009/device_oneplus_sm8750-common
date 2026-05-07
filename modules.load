@@ -497,6 +497,8 @@ rmnet_shs.ko
 rmnet_aps.ko
 rmnet_sch.ko
 rmnet_wlan.ko
+tango32.ko
+ntsync.ko
 msm_drm.ko
 frpc-adsprpc.ko
 msm-eva.ko
