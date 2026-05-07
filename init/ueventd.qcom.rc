@@ -610,3 +610,6 @@ subsystem mem_buf_vm
 
 # IPA Events
 /dev/ipa_events         0660   radio      radio
+
+# Tango 32-bit kernel support
+/dev/tango32                0666   system     system
