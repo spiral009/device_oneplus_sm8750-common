@@ -212,7 +212,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/permissions/privapp-permissions-hotword.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-hotword.xml
 
 # HWUI
-TARGET_USES_VULKAN := true
+# Disable Vulkan to prevent GPU hangs when switching apps
+# Unity (VRChat) + Skia Vulkan context contention causes freezes on Adreno 830
+TARGET_USES_VULKAN := false
 
 # IPACM
 ifneq ($(TARGET_IS_TABLET),true)
