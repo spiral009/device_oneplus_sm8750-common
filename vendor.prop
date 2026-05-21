@@ -1,4 +1,7 @@
 # Audio
+# MMAP enabled for low-latency audio
+# Workaround for QTI HAL bug: increase standby timeout so MMAP streams
+# aren't destroyed when apps briefly background (VRChat, Unity games)
 aaudio.hw_burst_min_usec=2000
 aaudio.mmap_exclusive_policy=2
 aaudio.mmap_policy=2
@@ -10,7 +13,10 @@ persist.vendor.audio.fluence.voicecall=true
 persist.vendor.audio.spf_restart=true
 ro.af.client_heap_size_kbyte=7168
 ro.audio.asyncdump.support=1
-ro.audio.flinger_standbytime_ms=1000
+# Standby timeout: ~24 days (effectively never)
+# MMAP streams stay alive forever - VRChat/Unity games won't lose audio
+# when backgrounded or when switching apps
+ro.audio.flinger_standbytime_ms=2147483647
 ro.audio.monitorRotation=1
 vendor.audio.adm.buffering.ms=2
 vendor.audio.c2.preferred=true
