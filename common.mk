@@ -533,14 +533,8 @@ PRODUCT_PACKAGES += \
     vendor.oplus.hardware.performance-service
 
 # Overlays
-$(call inherit-product, hardware/oplus \
-    hardware/qcom-caf/wlan \
-    hardware/qcom-caf/wlan/qcwcn \
-    hardware/qcom-caf/sm8750/overlay/generic/generic.mk)
-$(call inherit-product, hardware/oplus \
-    hardware/qcom-caf/wlan \
-    hardware/qcom-caf/wlan/qcwcn \
-    hardware/qcom-caf/sm8750/overlay/qssi/qssi.mk)
+$(call inherit-product, hardware/oplus/overlay/generic/generic.mk)
+$(call inherit-product, hardware/oplus/overlay/qssi/qssi.mk)
 
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay-lineage
@@ -662,10 +656,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.ims.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.ims.xml \
     frameworks/native/data/etc/android.hardware.telephony.mbms.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.mbms.xml
 
-$(call inherit-product, hardware/oplus \
-    hardware/qcom-caf/wlan \
-    hardware/qcom-caf/wlan/qcwcn \
-    hardware/qcom-caf/sm8750/oplus-fwk/oplus-fwk.mk)
+$(call inherit-product, hardware/oplus/oplus-fwk/oplus-fwk.mk)
 endif
 
 PRODUCT_COPY_FILES += \
@@ -732,10 +723,7 @@ endif
 
 # VINTF
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
-    hardware/oplus \
-    hardware/qcom-caf/wlan \
-    hardware/qcom-caf/wlan/qcwcn \
-    hardware/qcom-caf/sm8750/vintf/device_framework_matrix.xml \
+    hardware/oplus/vintf/device_framework_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml
 DEVICE_MATRIX_FILE := hardware/qcom-caf/common/compatibility_matrix_aidl.xml
 DEVICE_MANIFEST_FILE := \
@@ -773,7 +761,7 @@ PRODUCT_COPY_FILES += \
 # Dolby
 # Must stay below the VINTF block above, which assigns DEVICE_MANIFEST_FILE with
 # := and would otherwise drop the HIDL fragments this appends.
-$(call inherit-product, vendor/oneplus/dolby/config.mk)
+$(call inherit-product-if-exists, vendor/oneplus/dolby/config.mk)
 
 # Inherit from the proprietary files makefile.
 $(call inherit-product, vendor/oneplus/sm8750-common/sm8750-common-vendor.mk)

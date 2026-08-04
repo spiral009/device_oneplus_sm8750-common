@@ -1,11 +1,9 @@
 # _COMMON_GKI_MODULES_LIST
-virtio_blk.ko
 zram.ko
 btbcm.ko
 btqca.ko
 btsdio.ko
 hci_uart.ko
-virtio_console.ko
 vcpu_stall_detector.ko
 can-dev.ko
 slcan.ko
@@ -36,9 +34,6 @@ cdc-acm.ko
 usbmon.ko
 ftdi_sio.ko
 usbserial.ko
-virtio_balloon.ko
-virtio_pci.ko
-virtio_pci_modern_dev.ko
 kheaders.ko
 libarc4.ko
 zsmalloc.ko
@@ -71,7 +66,6 @@ rfkill.ko
 diag.ko
 tipc.ko
 vmw_vsock_virtio_transport.ko
-virtio_pci_legacy_dev.ko
 
 # _ARM64_GKI_MODULES_LIST
 gzvm.ko
