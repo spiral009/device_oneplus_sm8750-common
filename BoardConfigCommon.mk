@@ -160,7 +160,6 @@ TARGET_KERNEL_EXT_MODULES += \
     oplus/kernel/device_info/pogo_keyboard:kbuild \
     oplus/kernel/device_info/tri_state_key:kbuild \
     oplus/kernel/dfr:kbuild \
-    oplus/kernel/graphics:kbuild \
     oplus/kernel/network/oplus_network_oem_qmi:kbuild \
     oplus/kernel/network/oplus_network_esim:kbuild \
     oplus/kernel/network/oplus_network_sim_detect:kbuild \
@@ -219,7 +218,7 @@ TARGET_USERIMAGES_USE_F2FS := true
 ENABLE_VENDOR_RIL_SERVICE := true
 
 # Security
-BOOT_SECURITY_PATCH := 2026-04-01
+BOOT_SECURITY_PATCH := 2026-06-01
 VENDOR_SECURITY_PATCH := $(BOOT_SECURITY_PATCH)
 
 # SEPolicy

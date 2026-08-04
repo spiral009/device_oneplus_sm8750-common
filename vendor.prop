@@ -1,7 +1,4 @@
 # Audio
-# MMAP enabled for low-latency audio
-# Workaround for QTI HAL bug: increase standby timeout so MMAP streams
-# aren't destroyed when apps briefly background (VRChat, Unity games)
 aaudio.hw_burst_min_usec=2000
 aaudio.mmap_exclusive_policy=2
 aaudio.mmap_policy=2
@@ -13,10 +10,7 @@ persist.vendor.audio.fluence.voicecall=true
 persist.vendor.audio.spf_restart=true
 ro.af.client_heap_size_kbyte=7168
 ro.audio.asyncdump.support=1
-# Standby timeout: ~24 days (effectively never)
-# MMAP streams stay alive forever - VRChat/Unity games won't lose audio
-# when backgrounded or when switching apps
-ro.audio.flinger_standbytime_ms=2147483647
+ro.audio.flinger_standbytime_ms=1000
 ro.audio.monitorRotation=1
 vendor.audio.adm.buffering.ms=2
 vendor.audio.c2.preferred=true
@@ -140,15 +134,16 @@ debug.graphics.game_default_frame_rate.disabled=0
 debug.sf.auto_latch_unsignaled=0
 debug.sf.disable_backpressure=1
 debug.sf.disable_client_composition_cache=1
-debug.sf.early.app.duration=13666666
-debug.sf.earlyGl.app.duration=13666666
-debug.sf.earlyGl.sf.duration=12333333
-debug.sf.early.sf.duration=12333333
+debug.sf.early.app.duration=11666666
+debug.sf.early.sf.duration=8569853
+debug.sf.earlyGl.app.duration=11666666
+debug.sf.earlyGl.sf.duration=8569853
 debug.sf.enable_advanced_sf_phase_offset=1
 debug.sf.enable_gl_backpressure=0
 debug.sf.enable_hwc_vds=0
-debug.sf.late.app.duration=13666666
-debug.sf.late.sf.duration=12333333
+debug.sf.latch_unsignaled=0
+debug.sf.late.app.duration=11666666
+debug.sf.late.sf.duration=12786764
 debug.sf.predict_hwc_composition_strategy=0
 debug.sf.treat_170m_as_sRGB=1
 debug.sf.use_phase_offsets_as_durations=1
@@ -165,7 +160,10 @@ ro.surface_flinger.max_frame_buffer_acquired_buffers=3
 ro.surface_flinger.max_virtual_display_dimension=4096
 ro.surface_flinger.protected_contents=true
 ro.surface_flinger.set_display_power_timer_ms=1000
-ro.surface_flinger.set_idle_timer_ms=300
+# No SF idle timer: kernel ADFR/LTPO drops the panel self-refresh (20Hz floor,
+# 1Hz idle) underneath the current mode, like stock OOS. An SF idle timer just
+# ping-pongs the timing 60<->120 (each switch resets ADFR stepping and costs
+# DSI commands), fighting the panel's own idle machinery.
 ro.surface_flinger.set_touch_timer_ms=350
 ro.surface_flinger.use_color_management=true
 ro.surface_flinger.use_content_detection_for_refresh_rate=true
@@ -178,6 +176,8 @@ ro.incremental.enable=yes
 ro.hardware.keystore_desede=true
 
 # Media
+# Disable File-Based Encryption (DFE) - preserve userdata across ROM switches
+ro.crypto.state=unsupported
 debug.c2.use_dmabufheaps=1
 debug.stagefright.c2inputsurface=-1
 media.c2.hal.selection=aidl
